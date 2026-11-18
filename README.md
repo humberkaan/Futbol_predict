@@ -1,31 +1,42 @@
 # Futbol_predict
 
-Primera entrega: código en C para simular un partido de fútbol con Monte Carlo y una distribución de Poisson. No incluye página web ni requiere conexión a una API.
+Simulador de fútbol en C. Estima las probabilidades de victoria, empate y derrota al repetir un partido 10,000 veces.
 
-## Compilar y ejecutar
+[Ver el código en simulador.c](simulador.c)
 
-Con GCC o Clang:
+## Cómo funciona
 
-```sh
-cc -std=c11 -Wall -Wextra -Wpedantic simulador.c -lm -o simulador
-./simulador
+1. En `main`, cada equipo tiene partidos jugados (PJ), goles a favor (GF), goles en contra (GC) y promedio de goles por equipo y partido de su competición (μ).
+2. El programa calcula los goles esperados (λ) de cada equipo a partir de su ataque y de los goles que suele recibir el rival.
+3. Poisson genera un número entero de goles para cada equipo de forma independiente. Monte Carlo repite el partido y cuenta los resultados.
+
+## Ecuaciones
+
+El ajuste de cinco partidos promedio reduce el peso de muestras pequeñas. Un índice de defensa más alto indica que el equipo suele conceder más goles.
+
+```text
+Ataque  = (GF + 5 × μ) / [(PJ + 5) × μ]
+Defensa = (GC + 5 × μ) / [(PJ + 5) × μ]
+
+λA = 1.35 × ataque A × defensa B
+λB = 1.35 × ataque B × defensa A
 ```
 
-## Datos de entrada
+El valor 1.35 es la referencia de goles por equipo que usa el modelo para un campo neutral. Dado λ, la ecuación de Poisson da la probabilidad de anotar exactamente k goles.
 
-Modifica los equipos `a` y `b` dentro de `main`: nombre, partidos jugados, goles a favor, goles en contra y promedio de goles **por equipo y partido** de su competición. Los datos incluidos son **ilustrativos**, no corresponden a equipos reales. El promedio de competición se obtiene dividiendo sus goles totales entre dos veces el número de partidos.
+$$
+P(G=k)=\frac{e^{-\lambda}\lambda^k}{k!}
+$$
 
-## Cálculo
+La probabilidad estimada de cada resultado es su conteo dividido entre el número de simulaciones.
 
-1. Se suavizan las medias con 5 partidos equivalentes al promedio de la competición.
-2. Ataque = `(goles_favor + 5 * promedio) / (partidos + 5) / promedio`.
-3. Defensa = `(goles_contra + 5 * promedio) / (partidos + 5) / promedio`.
-4. Goles esperados A = `1.35 * ataque_A * defensa_B`; para B se intercambian los equipos.
-5. Poisson genera los goles de cada equipo de forma independiente. Monte Carlo repite el partido 10,000 veces.
-6. Probabilidad estimada = número de resultados del tipo buscado / número de simulaciones.
+## Ejemplo
 
-El ajuste de 5 partidos y la referencia neutral de 1.35 son supuestos del prototipo, no parámetros calibrados. La semilla fija permite reproducir el experimento; este código usa xorshift32. Los resultados concretos pueden diferir de implementaciones con otro generador aleatorio.
+Con los datos ilustrativos del código, el equipo A tiene λ = 1.326 y el B tiene λ = 0.990. Con semilla 42, A gana 4,501 de los 10,000 partidos simulados. Su probabilidad estimada es **45.01%**. El empate queda en **27.50%** y la victoria de B en **27.49%**.
 
-## Alcance
+## Ejecutar
 
-Es un modelo académico exploratorio. No corrige diferencias de nivel entre ligas o épocas, lesiones, plantillas ni calidad de rivales. Más simulaciones reducen el error de Monte Carlo, pero no garantizan mejores predicciones. Para incorporar datos reales se pueden consultar los CSV de [Football-Data](https://football-data.co.uk/downloadm.php); esta primera entrega no los descarga.
+```sh
+cc -std=c11 -Wall -Wextra -Wpedantic simulador.c -lm -o /tmp/futbol-simulador
+/tmp/futbol-simulador
+```
