@@ -6,7 +6,7 @@ Simulador de fútbol. Estima las probabilidades de victoria, empate y derrota al
 
 ## Cómo funciona
 
-1. En `main`, cada equipo tiene partidos jugados (PJ), goles a favor (GF), goles en contra (GC) y promedio de goles por equipo y partido de su competición (μ).
+1. Cada equipo tiene partidos jugados (PJ), goles a favor (GF), goles en contra (GC) y promedio de goles por equipo y partido de su competición (μ).
 2. El programa calcula los goles esperados (λ) de cada equipo a partir de su ataque y de los goles que suele recibir el rival.
 3. Poisson genera un número entero de goles para cada equipo de forma independiente. Monte Carlo repite el partido y cuenta los resultados.
 
