@@ -40,3 +40,7 @@ Con los datos ilustrativos del código, el equipo A tiene λ = 1.326 y el B tien
 cc -std=c11 -Wall -Wextra -Wpedantic simulador.c -lm -o /tmp/futbol-simulador
 /tmp/futbol-simulador
 ```
+
+## Datos de la aplicación
+
+Consulta los CSV de clubes y selecciones, sus campos y fuentes en [datos/](datos/README.md). El ejemplo de C carga sus entradas desde el código.
