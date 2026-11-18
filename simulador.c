@@ -1,5 +1,4 @@
-/* Simulacion Monte Carlo de goles con distribucion de Poisson.
-   Ejemplo ilustrativo: las entradas no son estadisticas de un equipo real. */
+
 #include <stdio.h>
 #include <stdint.h>
 #include <math.h>
@@ -11,10 +10,10 @@
 typedef struct {
     const char *nombre;
     int partidos, goles_favor, goles_contra;
-    double promedio_competicion; /* goles por equipo y partido */
+    double promedio_competicion; 
 } Equipo;
 
-/* Generador reproducible xorshift32; estado inicial distinto de cero. */
+
 static uint32_t estado = 42;
 static double uniforme(void) {
     estado ^= estado << 13;
@@ -23,7 +22,7 @@ static double uniforme(void) {
     return ((double)estado + 0.5) / 4294967296.0;
 }
 
-/* Algoritmo de Knuth para Poisson. Adecuado para tasas bajas de goles. */
+
 static int poisson(double lambda) {
     double limite = exp(-lambda), producto = 1.0;
     int k = 0;
@@ -39,7 +38,6 @@ static double ataque(Equipo e) {
          / (e.partidos + AJUSTE) / e.promedio_competicion;
 }
 
-/* Un indice defensivo alto significa que el equipo recibe mas goles. */
 static double defensa(Equipo e) {
     return (e.goles_contra + AJUSTE * e.promedio_competicion)
          / (e.partidos + AJUSTE) / e.promedio_competicion;
@@ -51,7 +49,6 @@ static int valido(Equipo e) {
 }
 
 int main(void) {
-    /* Cambia estas entradas por datos del mismo periodo de cada equipo. */
     Equipo a = {"Equipo A", 10, 18, 9, 1.5};
     Equipo b = {"Equipo B", 10, 15, 12, 1.5};
     if (!valido(a) || !valido(b)) {
