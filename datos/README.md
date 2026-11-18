@@ -1,7 +1,7 @@
 # Bases de partidos
 
 Extractos usados por ERA. Cada fila corresponde a un partido. Los campos son competición y temporada, fecha, equipo local, visitante y goles de cada equipo. Las columnas de localía identifican el partido histórico. El simulador enfrenta equipos en campo neutral.
-
+https://football-data.co.uk/downloadm.php
 - [Clubes](clubes.csv) contiene 2,099 partidos de Football-Data. La temporada 2026/27 tiene corte al 2 de noviembre de 2026.
 - [Selecciones](selecciones.csv) contiene 124 partidos de StatsBomb Open Data. Los marcadores pueden incluir prórroga y excluyen tandas. Los registros de 1970 y 1986 son muestras parciales.
 
