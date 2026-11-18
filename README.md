@@ -1,8 +1,8 @@
 # Futbol_predict
 
-Simulador de fútbol en C. Estima las probabilidades de victoria, empate y derrota al repetir un partido 10,000 veces.
+Simulador de fútbol. Estima las probabilidades de victoria, empate y derrota al repetir un partido 10,000 veces.
 
-[Ver el código en simulador.c](simulador.c)
+
 
 ## Cómo funciona
 
