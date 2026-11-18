@@ -30,6 +30,27 @@ $$
 
 La probabilidad estimada de cada resultado es su conteo dividido entre el número de simulaciones.
 
+## Significado de las variables
+
+| Símbolo | Significado |
+|---|---|
+| A, B | Los dos equipos que se enfrentan. |
+| PJ | Partidos jugados por el equipo en el período analizado. |
+| GF | Total de goles a favor del equipo en esos partidos. |
+| GC | Total de goles en contra del equipo en esos partidos. |
+| μ | Promedio de goles por equipo y partido en la competición y el período de referencia. Se calcula como goles totales / (2 × partidos). |
+| Ataque | Índice de goles anotados respecto a μ. Un valor mayor que 1 indica que el equipo anota por encima del promedio tras el ajuste. |
+| Defensa | Índice de goles concedidos respecto a μ. Un valor menor que 1 indica que el equipo concede por debajo del promedio tras el ajuste. |
+| λA, λB | Goles esperados de A y B, respectivamente, en el partido simulado. En C son `lambda_a` y `lambda_b`. |
+| λ | Goles esperados del equipo al que se aplica Poisson. |
+| G | Número de goles anotados por ese equipo en un partido simulado. |
+| k | Cantidad exacta de goles cuya probabilidad se calcula, como 0, 1 o 2. |
+| P(G = k) | Probabilidad de que el equipo anote exactamente k goles. |
+| e | Base del logaritmo natural, aproximadamente 2.71828. En C, `exp(-lambda)` calcula e elevado a −λ. |
+| k! | Factorial de k. Por ejemplo, 3! = 3 × 2 × 1 = 6 y 0! = 1. |
+
+El **5** representa el ajuste de cinco partidos promedio. El **1.35** es la referencia de goles por equipo en campo neutral. Ambos valores son supuestos del prototipo.
+
 ## Ejemplo
 
 Con los datos ilustrativos del código, el equipo A tiene λ = 1.326 y el B tiene λ = 0.990. Con semilla 42, A gana 4,501 de los 10,000 partidos simulados. Su probabilidad estimada es **45.01%**. El empate queda en **27.50%** y la victoria de B en **27.49%**.
